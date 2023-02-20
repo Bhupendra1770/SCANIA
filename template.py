@@ -10,14 +10,14 @@ list_of_files = [
    ".github/workflows/main.yaml",
    f"{package_name}/__init__.py", 
    f"{package_name}/components/__init__.py", 
-   f"{package_name}/utils/__init__.py", 
    f"{package_name}/pipeline/__init__.py", 
    f"{package_name}/entity/__init__.py", 
+      f"{package_name}/utils.py", 
    f"{package_name}/connection.py",
    "requirements.txt", 
    "data_dump.py",
    "setup.py",
-   "main.py"
+   "main.py",
    "init_setup.sh"
     
 ]
