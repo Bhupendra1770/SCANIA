@@ -7,6 +7,7 @@ from scania.components.data_ingestion import DataIngestion
 from scania.components.data_validation import DataValidation
 from scania.components.data_transformation import DataTransformation
 from scania.components.model_trainer import ModelTrainer
+from scania.components.model_evaluation import ModelEvaluation
 
 
 
@@ -38,6 +39,14 @@ def start_training_pipeline():
         model_trainer_config = config_entity.ModelTrainerConfig(training_pipeline_config=training_pipeline_config)
         model_trainer = ModelTrainer(model_trainer_config=model_trainer_config, data_transformation_artifact=data_transformation_artifact)
         model_trainer_artifact = model_trainer.initiate_model_trainer()
+
+        #model evaluation
+        model_eval_config = config_entity.ModelEvaluationConfig(training_pipeline_config=training_pipeline_config)
+        model_eval  = ModelEvaluation(model_eval_config=model_eval_config,
+        data_ingestion_artifact=data_ingestion_artifact,
+        data_transformation_artifact=data_transformation_artifact,
+        model_trainer_artifact=model_trainer_artifact)
+        model_eval_artifact = model_eval.initiate_model_evaluation()
         
     except Exception as e:
         raise ScaniaException(e, sys)
