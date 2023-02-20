@@ -8,6 +8,7 @@ from scania.components.data_validation import DataValidation
 from scania.components.data_transformation import DataTransformation
 from scania.components.model_trainer import ModelTrainer
 from scania.components.model_evaluation import ModelEvaluation
+from scania.components.model_pusher import ModelPusher
 
 
 
@@ -47,6 +48,16 @@ def start_training_pipeline():
         data_transformation_artifact=data_transformation_artifact,
         model_trainer_artifact=model_trainer_artifact)
         model_eval_artifact = model_eval.initiate_model_evaluation()
+
+        
+        #model pusher
+        model_pusher_config = config_entity.ModelPusherConfig(training_pipeline_config)
+        
+        model_pusher = ModelPusher(model_pusher_config=model_pusher_config, 
+                data_transformation_artifact=data_transformation_artifact,
+                model_trainer_artifact=model_trainer_artifact)
+
+        model_pusher_artifact = model_pusher.initiate_model_pusher()
         
     except Exception as e:
         raise ScaniaException(e, sys)
